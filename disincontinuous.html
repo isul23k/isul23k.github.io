@@ -1,0 +1,94 @@
+<nav><small>
+    <a href="index.html">Home</a> |
+    <a href="works.html">Works</a> |
+    <a href="radio.html">Radio</a> |
+    contact: isulvontrapp@gmail.com |
+    <br><br><br><br><br><a href="disincontinuous.html">🪫</a>
+<br>
+</small> </nav>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div style="text-align: center;">
+<br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Audio API Example</title>
+</head>
+<body>
+    <button onclick="playSamples()">Play Samples</button>
+
+    <script>
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        async function loadAudioBuffer(url) {
+            const response = await fetch(url);
+            const arrayBuffer = await response.arrayBuffer();
+            return await audioContext.decodeAudioData(arrayBuffer);
+        }
+
+        async function playSamples() {
+            const buffer1 = await loadAudioBuffer('chopin_waltz_c#minor.mp3');
+            const buffer2 = await loadAudioBuffer('002 Bach partita c-moll.mp3');
+
+            const startPos2Sequence = [0.001, 0.003, 0.005, 0.007, 0.009, 0.007, 0.005, 0.003, 0.001, 0.09];
+            let startPos2Index = 0;
+
+            function playBuffer(buffer, rate, amp, pan, startPos) {
+                const source = audioContext.createBufferSource();
+                source.buffer = buffer;
+                source.playbackRate.value = rate;
+
+                const gainNode = audioContext.createGain();
+                gainNode.gain.value = amp;
+
+                const panner = audioContext.createStereoPanner();
+                panner.pan.value = pan;
+
+                source.connect(gainNode).connect(panner).connect(audioContext.destination);
+                source.start(audioContext.currentTime, startPos * buffer.duration);
+            }
+
+            // Play the first sample
+            playBuffer(buffer1, 0.3, 0.2, 1, startPos2Sequence[startPos2Index]);
+            startPos2Index = (startPos2Index + 1) % startPos2Sequence.length;
+
+            // Wait 1 second before playing the second sample
+            setTimeout(() => {
+                playBuffer(buffer2, 0.4, 0.07, -1, 0.0);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
