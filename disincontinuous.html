@@ -3,7 +3,7 @@
     <a href="works.html">Works</a> |
     <a href="radio.html">Radio</a> |
     contact: isulvontrapp@gmail.com |
-    <br><br><br><br><br><a href="disincontinuous.html">🪫</a>
+    <a href="disincontinuous.html">🪫</a>
 <br>
 </small> </nav>
 <br>
@@ -31,7 +31,7 @@
     <title>Web Audio API Example</title>
 </head>
 <body>
-    <button onclick="playSamples()">Play Samples</button>
+    <button onclick="playSamples()">🔋</button>
 
     <script>
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -43,6 +43,11 @@
         }
 
         async function playSamples() {
+
+            // Ensure the AudioContext is running
+            if (audioContext.state === 'suspended') {
+                await audioContext.resume();
+            }
             const buffer1 = await loadAudioBuffer('chopin_waltz_c#minor.mp3');
             const buffer2 = await loadAudioBuffer('002 Bach partita c-moll.mp3');
 
