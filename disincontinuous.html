@@ -45,7 +45,7 @@
         async function playSamples() {
 
             // Ensure the AudioContext is running
-            if (audioContext.state === 'suspended') {
+            if (audioContext.state === 'running') {
                 await audioContext.resume();
             }
             const buffer1 = await loadAudioBuffer('chopin_waltz_c#minor.mp3');
